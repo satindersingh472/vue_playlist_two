@@ -3,6 +3,9 @@
   <div class="playlist_all">
     <h1>PlayList of Songs</h1>
     <!-- playlist items is a parent div for list of songs in a playlist -->
+    <h2>
+      please add songs from songs list
+    </h2>
     <div class="playlist_items" ref="playlist" @click="send_to_play"></div>
   </div>
 </template>
@@ -25,8 +28,15 @@ export default {
     display_song(sent_song) {
       // if conditional will check if there is any previous value of sent song is there inside the playlist ref
       // and if there is a value present it will prevent the repetion of adding a song to playlist
-      if (this.$refs[`playlist`][`innerHTML`].includes(sent_song) === false) {
+      if (this.$refs[`playlist`][`innerHTML`].includes(sent_song) === false &&  this.$refs[`playlist`][`previousElementSibling`][`localName`] === `h2`) {
+        this.$refs[`playlist`][`previousElementSibling`][`outerHTML`] = "";
         this.$refs[`playlist`][`innerHTML`] += sent_song;
+      } else if(this.$refs[`playlist`][`innerHTML`].includes(sent_song) === false && this.$refs[`playlist`][`previousElementSibling`][`localName`] !== `h2`){
+        this.$refs[`playlist`][`innerHTML`] += sent_song;
+      }
+       else if (this.$refs[`playlist`][`innerHTML`].includes(sent_song)=== true )  {
+        alert(`Cannot add one song more than once`);
+
       }
     },
   },
